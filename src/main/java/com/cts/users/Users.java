@@ -1,6 +1,5 @@
 package com.cts.users;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,8 +23,7 @@ public class Users {
 		this.bankName = bankName;
 		this.balance = balance;
 	}
-// WADAWD
-	 //awdawdawdbxfbbf
+
 	@Override
 	public String toString() {
 		return "Users [id=" + id + ", accountNumber=" + accountNumber + ", bankName=" + bankName + ", balance="

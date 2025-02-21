@@ -7,5 +7,6 @@ import com.cts.users.Users;
 
 @Repository
 public interface UserRepository extends JpaRepository<Users, Integer> {
-
+	Users findByAccountNumber(String accountNumber);
+	
 }
