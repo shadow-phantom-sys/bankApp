@@ -10,11 +10,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 /**
  * Hello world!
  */
-@Configuration
+//@Configuration
 //@EntityScan
-@EntityScan(basePackages = {"com.cts"})
-@EnableJpaRepositories(basePackages = {"com.cts.repository"})
-@ComponentScan(basePackages = {"com.cts.controller", "com.cts.repository", "com.cts.users"})
+//@EntityScan(basePackages = {"com.cts"})
+//@EnableJpaRepositories(basePackages = {"com.cts.repository"})
+//@ComponentScan(basePackages = {"com.cts.controller", "com.cts.repository", "com.cts.users"})
 @SpringBootApplication
 public class App {
     public static void main(String[] args) {

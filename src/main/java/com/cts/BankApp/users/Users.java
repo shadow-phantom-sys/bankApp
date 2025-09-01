@@ -1,4 +1,4 @@
-package com.cts.users;
+package com.cts.BankApp.users;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

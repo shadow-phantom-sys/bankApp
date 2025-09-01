@@ -1,5 +1,7 @@
+package com.cts.BankApp.service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 //import org.apache.catalina.realm.JNDIRealm.User;
@@ -13,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cts.repository.UserRepository;
-import com.cts.users.Users;
+import com.cts.BankApp.repository.UserRepository;
+import com.cts.BankApp.users.Users;
 
 @Service
 @Transactional
@@ -29,6 +31,15 @@ public class UserService {
     
     @Autowired
 //    private AuditService auditService; // Assuming we have an audit service
+    
+    
+    public List<Users> getUsers(){
+		return userRepository.findAll();    	
+    }
+    
+    public Optional<Users> getUserById(int id){
+    	return userRepository.findById(id);
+    }
     
     @Transactional
     public Users createUser(Users user) {
@@ -69,44 +80,44 @@ public class UserService {
         }
     }
     
-    @Transactional
-    public void deleteUser(Integer id) {
-        logger.info("Attempting to delete user with ID: {}", id);
-        
-        try {
-            Users user = user.getId();
-            
-            // Check if user has non-zero balance
-            if (user.getBalance() > 0) {
-                logger.error("Cannot delete user with non-zero balance. User ID: {}", id);
-                throw new AccountDeletionException("Cannot delete account with non-zero balance");
-            }
-            
-            // Check for any pending transactions
-            if (hasPendingTransactions(user)) {
-                logger.error("Cannot delete user with pending transactions. User ID: {}", id);
-                throw new AccountDeletionException("Cannot delete account with pending transactions");
-            }
-            
-            // Soft delete - Update status instead of actual deletion
-//            user.setStatus("INACTIVE");
-//            user.setClosedAt(LocalDateTime.now());
-//            user.setClosureReason("User requested account deletion");
-//            userRepository.save(user);
-            
-            // Audit the deletion
-//            auditService.logUserDeletion(user);
-            
-            logger.info("Successfully deactivated user account with ID: {}", id);
-            
-        } catch (UserNotFoundException e) {
-            logger.error("Delete failed - User not found with ID: {}", id);
-            throw e;
-        } catch (Exception e) {
-            logger.error("Error occurred while deleting user: {}", e.getMessage());
-            throw new RuntimeException("Failed to delete user: " + e.getMessage());
-        }
-    }
+//    @Transactional
+//    public void deleteUser(Integer id) {
+//        logger.info("Attempting to delete user with ID: {}", id);
+//        
+//        try {
+//            int user = user.getId();
+//            
+//            // Check if user has non-zero balance
+//            if (user.getBalance() > 0) {
+//                logger.error("Cannot delete user with non-zero balance. User ID: {}", id);
+//                throw new AccountDeletionException("Cannot delete account with non-zero balance");
+//            }
+//            
+//            // Check for any pending transactions
+//            if (hasPendingTransactions(user)) {
+//                logger.error("Cannot delete user with pending transactions. User ID: {}", id);
+//                throw new AccountDeletionException("Cannot delete account with pending transactions");
+//            }
+//            
+//            // Soft delete - Update status instead of actual deletion
+////            user.setStatus("INACTIVE");
+////            user.setClosedAt(LocalDateTime.now());
+////            user.setClosureReason("User requested account deletion");
+////            userRepository.save(user);
+//            
+//            // Audit the deletion
+////            auditService.logUserDeletion(user);
+//            
+//            logger.info("Successfully deactivated user account with ID: {}", id);
+//            
+//        } catch (UserNotFoundException e) {
+//            logger.error("Delete failed - User not found with ID: {}", id);
+//            throw e;
+//        } catch (Exception e) {
+//            logger.error("Error occurred while deleting user: {}", e.getMessage());
+//            throw new RuntimeException("Failed to delete user: " + e.getMessage());
+//        }
+//    }
     
     private void validateUserData(Users user) {
         List<String> validationErrors = new ArrayList<>();
