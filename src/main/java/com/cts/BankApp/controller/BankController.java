@@ -1,5 +1,6 @@
 package com.cts.BankApp.controller;
 
+import org.slf4j.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,10 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.BankApp.service.UserService;
 import com.cts.BankApp.users.Users;
+import org.slf4j.LoggerFactory;
 @CrossOrigin(origins = "http://localhost:8049")
 @RestController
 @Configuration
 public class BankController {
+	private static final Logger logger =LoggerFactory.getLogger(BankController.class);
 	@RequestMapping("/")
 	public String getHello(){
 				return "Hello";
@@ -40,6 +43,7 @@ public class BankController {
 	@PostMapping
     public ResponseEntity<Users> createUser(@RequestBody Users user) {
         Users createdUser = userService.createUser(user);
+        logger.info("Users added:- "+createdUser);
         return ResponseEntity.ok(createdUser);
     }
 	
